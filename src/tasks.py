@@ -1,5 +1,6 @@
 TASKS = [
     {
+        "nome": "classificacao_sentimento",
         "tipo": "classificacao",
         "instrucao": "Classifique o sentimento do cliente.",
         "formato_output": "Responda apenas POSITIVO, NEGATIVO, MISTO ou NEUTRO.",
