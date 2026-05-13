@@ -85,5 +85,50 @@
       "input": "A plataforma ficou indisponível durante a aula.",
       "esperado": "Pedimos desculpas pela instabilidade."
     }
+  ],
+
+
+
+  "sumarizacao_conteudo": [
+
+    {
+      "input":
+      "O curso de Ciência de Dados aborda Python, análise estatística, machine learning e visualização de dados.",
+
+      "esperado":
+      "- Python\n- Análise estatística\n- Machine Learning\n- Visualização de dados"
+    },
+
+    {
+      "input":
+      "A disciplina ensina redes neurais artificiais, deep learning e processamento de linguagem natural.",
+
+      "esperado":
+      "- Redes neurais artificiais\n- Deep Learning\n- Processamento de linguagem natural"
+    },
+
+    {
+      "input":
+      "O treinamento inclui banco de dados relacionais, SQL e modelagem de dados.",
+
+      "esperado":
+      "- Banco de dados relacionais\n- SQL\n- Modelagem de dados"
+    },
+
+    {
+      "input":
+      "A formação cobre desenvolvimento web frontend, backend e integração com APIs.",
+
+      "esperado":
+      "- Frontend\n- Backend\n- APIs"
+    },
+
+    {
+      "input":
+      "O curso apresenta fundamentos de computação em nuvem, containers e microsserviços.",
+
+      "esperado":
+      "- Computação em nuvem\n- Containers\n- Microsserviços"
+    }
   ]
 }

@@ -115,5 +115,40 @@ TASKS = [
 
         "persona":
         "tutor_virtual"
+    },
+
+    {
+        "nome": "sumarizacao_conteudo",
+
+        "tipo": "sumarizacao",
+
+        "instrucao":
+        "Resuma o conteúdo acadêmico apresentado.",
+
+        "formato_output":
+        "Retorne um resumo curto e objetivo em bullet points.",
+
+        "exemplos_fewshot": [
+
+            {
+                "input":
+                "O curso aborda lógica de programação, estruturas de dados e algoritmos.",
+
+                "output":
+                "- Lógica de programação\n- Estruturas de dados\n- Algoritmos"
+            }
+        ],
+
+        "passos_cot": [
+
+            "Identifique os tópicos principais",
+
+            "Remova informações redundantes",
+
+            "Produza um resumo objetivo"
+        ],
+
+        "persona":
+        "especialista_resumos"
     }
 ]
