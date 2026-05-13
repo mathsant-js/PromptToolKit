@@ -1,62 +1,119 @@
 TASKS = [
+
     {
-        "nome": "classificacao_sentimento",
+        "nome": "classificacao_feedback",
+
         "tipo": "classificacao",
-        "instrucao": "Classifique o sentimento do cliente.",
-        "formato_output": "Responda apenas POSITIVO, NEGATIVO, MISTO ou NEUTRO.",
+
+        "instrucao":
+        "Classifique o sentimento do feedback do aluno.",
+
+        "formato_output":
+        "Responda apenas POSITIVO, NEGATIVO, MISTO ou NEUTRO.",
+
         "exemplos_fewshot": [
+
             {
-                "input": "Adorei o atendimento",
-                "output": "POSITIVO"
+                "input":
+                "A plataforma é excelente e os professores explicam muito bem.",
+
+                "output":
+                "POSITIVO"
             },
+
             {
-                "input": "Produto chegou quebrado",
-                "output": "NEGATIVO"
+                "input":
+                "As aulas travam constantemente e o suporte não responde.",
+
+                "output":
+                "NEGATIVO"
             }
         ],
+
         "passos_cot": [
-            "Identifique aspectos positivos",
-            "Identifique aspectos negativos",
+
+            "Identifique pontos positivos",
+
+            "Identifique pontos negativos",
+
             "Determine o sentimento predominante"
         ],
-        "persona": "analista_cx"
+
+        "persona":
+        "coordenador_pedagogico"
     },
 
+
+
     {
-        "nome": "extracao_dados",
+        "nome": "extracao_informacoes_curso",
+
         "tipo": "extracao",
-        "instrucao": "Extraia os dados relevantes do texto.",
-        "formato_output": "Retorne um JSON estruturado.",
+
+        "instrucao":
+        "Extraia as informações acadêmicas relevantes do texto.",
+
+        "formato_output":
+        "Retorne um JSON estruturado.",
+
         "exemplos_fewshot": [
+
             {
-                "input": "Notebook Dell de R$3500 com defeito",
-                "output": "{produto: Notebook Dell, preco: R$3500}"
+                "input":
+                "Curso de Python Avançado com carga horária de 40 horas.",
+
+                "output":
+                "{curso: Python Avançado, carga_horaria: 40 horas}"
             }
         ],
+
         "passos_cot": [
-            "Identifique produto",
-            "Identifique valores",
-            "Monte o JSON"
+
+            "Identifique o nome do curso",
+
+            "Identifique carga horária",
+
+            "Monte o JSON estruturado"
         ],
-        "persona": "especialista_suporte"
+
+        "persona":
+        "assistente_academico"
     },
 
+
+
     {
-        "nome": "geracao_resposta",
+        "nome": "geracao_resposta_aluno",
+
         "tipo": "geracao",
-        "instrucao": "Gere uma resposta profissional para o cliente.",
-        "formato_output": "Resposta cordial e objetiva.",
+
+        "instrucao":
+        "Gere uma resposta profissional e acolhedora para o aluno.",
+
+        "formato_output":
+        "Resposta educada, clara e objetiva.",
+
         "exemplos_fewshot": [
+
             {
-                "input": "Meu pedido atrasou",
-                "output": "Pedimos desculpas pelo atraso."
+                "input":
+                "Não consegui acessar minha atividade.",
+
+                "output":
+                "Vamos ajudá-lo a resolver o acesso à atividade."
             }
         ],
+
         "passos_cot": [
-            "Identifique o problema",
-            "Mostre empatia",
-            "Apresente solução"
+
+            "Identifique o problema do aluno",
+
+            "Demonstre empatia",
+
+            "Apresente uma solução clara"
         ],
-        "persona": "analista_cx"
+
+        "persona":
+        "tutor_virtual"
     }
 ]

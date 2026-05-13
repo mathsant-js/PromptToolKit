@@ -1,87 +1,89 @@
 {
-  "classificacao_sentimento": [
+  "classificacao_feedback": [
 
     {
-      "input": "Adorei o produto e o atendimento.",
+      "input": "Os professores são muito atenciosos e a plataforma funciona perfeitamente.",
       "esperado": "POSITIVO"
     },
 
     {
-      "input": "Produto chegou quebrado.",
+      "input": "As videoaulas travam o tempo inteiro.",
       "esperado": "NEGATIVO"
     },
 
     {
-      "input": "Entrega rápida, mas suporte ruim.",
+      "input": "Gostei do conteúdo, mas o suporte demorou para responder.",
       "esperado": "MISTO"
     },
 
     {
-      "input": "Não tenho opinião sobre o serviço.",
+      "input": "Ainda estou utilizando a plataforma e não tenho opinião formada.",
       "esperado": "NEUTRO"
     },
 
     {
-      "input": "Excelente experiência de compra.",
+      "input": "A didática do curso foi excelente.",
       "esperado": "POSITIVO"
     }
   ],
 
 
-  "extracao_dados": [
+
+  "extracao_informacoes_curso": [
 
     {
-      "input": "Notebook Dell de R$3500 com defeito na bateria.",
-      "esperado": "{produto: Notebook Dell, preco: R$3500}"
+      "input": "Curso de Machine Learning com duração de 60 horas.",
+      "esperado": "{curso: Machine Learning, carga_horaria: 60 horas}"
     },
 
     {
-      "input": "Mouse Logitech custando R$120 apresentou falha.",
-      "esperado": "{produto: Mouse Logitech, preco: R$120}"
+      "input": "Curso de Banco de Dados possui carga horária de 45 horas.",
+      "esperado": "{curso: Banco de Dados, carga_horaria: 45 horas}"
     },
 
     {
-      "input": "Monitor Samsung de R$999 queimou após 2 dias.",
-      "esperado": "{produto: Monitor Samsung, preco: R$999}"
+      "input": "Curso de Desenvolvimento Web com 80 horas de duração.",
+      "esperado": "{curso: Desenvolvimento Web, carga_horaria: 80 horas}"
     },
 
     {
-      "input": "Teclado Redragon de R$250 veio sem cabo.",
-      "esperado": "{produto: Teclado Redragon, preco: R$250}"
+      "input": "Curso de Python Básico tem carga horária de 30 horas.",
+      "esperado": "{curso: Python Básico, carga_horaria: 30 horas}"
     },
 
     {
-      "input": "Notebook Acer de R$4200 travando constantemente.",
-      "esperado": "{produto: Notebook Acer, preco: R$4200}"
+      "input": "Curso de Inteligência Artificial possui duração total de 100 horas.",
+      "esperado": "{curso: Inteligência Artificial, carga_horaria: 100 horas}"
     }
   ],
 
 
-  "geracao_resposta": [
+
+  "geracao_resposta_aluno": [
 
     {
-      "input": "Meu pedido atrasou novamente.",
-      "esperado": "Pedimos desculpas pelo atraso."
+      "input": "Não consegui enviar minha atividade.",
+      "esperado": "Vamos ajudá-lo com o envio da atividade."
     },
 
     {
-      "input": "Recebi produto errado.",
-      "esperado": "Lamentamos o ocorrido."
+      "input": "Minha prova não apareceu na plataforma.",
+      "esperado": "Vamos verificar o problema da prova."
     },
 
     {
-      "input": "O suporte não respondeu.",
-      "esperado": "Pedimos desculpas pela demora."
+      "input": "Não consigo acessar meu certificado.",
+      "esperado": "Vamos auxiliá-lo no acesso ao certificado."
     },
 
     {
-      "input": "Quero trocar meu produto.",
-      "esperado": "Vamos ajudar na troca."
+      "input": "Esqueci minha senha de acesso.",
+      "esperado": "Vamos ajudá-lo a recuperar sua senha."
     },
 
     {
-      "input": "Meu notebook veio com defeito.",
-      "esperado": "Lamentamos o problema."
+      "input": "A plataforma ficou indisponível durante a aula.",
+      "esperado": "Pedimos desculpas pela instabilidade."
     }
   ]
 }
