@@ -1,0 +1,12 @@
+{
+  "classificacao_sentimento": [
+    {
+      "input": "O produto chegou muito rápido e funcionou perfeitamente.",
+      "esperado": "POSITIVO"
+    },
+    {
+      "input": "Veio quebrado e ninguém respondeu meu suporte.",
+      "esperado": "NEGATIVO"
+    }
+  ]
+}
