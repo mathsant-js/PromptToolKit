@@ -1,12 +1,87 @@
 {
   "classificacao_sentimento": [
+
     {
-      "input": "O produto chegou muito rápido e funcionou perfeitamente.",
+      "input": "Adorei o produto e o atendimento.",
       "esperado": "POSITIVO"
     },
+
     {
-      "input": "Veio quebrado e ninguém respondeu meu suporte.",
+      "input": "Produto chegou quebrado.",
       "esperado": "NEGATIVO"
+    },
+
+    {
+      "input": "Entrega rápida, mas suporte ruim.",
+      "esperado": "MISTO"
+    },
+
+    {
+      "input": "Não tenho opinião sobre o serviço.",
+      "esperado": "NEUTRO"
+    },
+
+    {
+      "input": "Excelente experiência de compra.",
+      "esperado": "POSITIVO"
+    }
+  ],
+
+
+  "extracao_dados": [
+
+    {
+      "input": "Notebook Dell de R$3500 com defeito na bateria.",
+      "esperado": "{produto: Notebook Dell, preco: R$3500}"
+    },
+
+    {
+      "input": "Mouse Logitech custando R$120 apresentou falha.",
+      "esperado": "{produto: Mouse Logitech, preco: R$120}"
+    },
+
+    {
+      "input": "Monitor Samsung de R$999 queimou após 2 dias.",
+      "esperado": "{produto: Monitor Samsung, preco: R$999}"
+    },
+
+    {
+      "input": "Teclado Redragon de R$250 veio sem cabo.",
+      "esperado": "{produto: Teclado Redragon, preco: R$250}"
+    },
+
+    {
+      "input": "Notebook Acer de R$4200 travando constantemente.",
+      "esperado": "{produto: Notebook Acer, preco: R$4200}"
+    }
+  ],
+
+
+  "geracao_resposta": [
+
+    {
+      "input": "Meu pedido atrasou novamente.",
+      "esperado": "Pedimos desculpas pelo atraso."
+    },
+
+    {
+      "input": "Recebi produto errado.",
+      "esperado": "Lamentamos o ocorrido."
+    },
+
+    {
+      "input": "O suporte não respondeu.",
+      "esperado": "Pedimos desculpas pela demora."
+    },
+
+    {
+      "input": "Quero trocar meu produto.",
+      "esperado": "Vamos ajudar na troca."
+    },
+
+    {
+      "input": "Meu notebook veio com defeito.",
+      "esperado": "Lamentamos o problema."
     }
   ]
 }
