@@ -1,26 +1,44 @@
 import tiktoken
 
+# =====================================
+# CONTAGEM DE TOKENS
+# =====================================
 
 
 def contar_tokens(texto):
+
     encoder = tiktoken.get_encoding("cl100k_base")
+
     return len(encoder.encode(texto))
 
 
+# =====================================
+# ACURÁCIA
+# =====================================
+
 
 def medir_acuracia(resposta, esperado):
+
     resposta = resposta.strip().upper()
+    esperado = esperado.strip().upper()
 
-    if resposta == esperado.upper():
-        return 1
+    return int(resposta == esperado)
 
-    return 0
 
+# =====================================
+# CONSISTÊNCIA
+# =====================================
 
 
 def medir_consistencia(respostas):
-    total = len(respostas)
 
-    iguais = respostas.count(respostas[0])
+    if not respostas:
+        return 0
 
-    return round((iguais / total) * 100, 2)
+    primeira = respostas[0]
+
+    iguais = respostas.count(primeira)
+
+    consistencia = (iguais / len(respostas)) * 100
+
+    return round(consistencia, 2)
