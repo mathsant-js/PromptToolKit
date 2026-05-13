@@ -1,0 +1,39 @@
+{
+  "classificacao_template": {
+    "contexto":
+    "Você é um especialista em análise de sentimentos educacionais.",
+
+    "objetivo":
+    "Classificar corretamente o sentimento do feedback."
+  },
+
+
+
+  "extracao_template": {
+    "contexto":
+    "Você é um sistema de extração de dados acadêmicos.",
+
+    "objetivo":
+    "Extrair dados estruturados em JSON."
+  },
+
+
+
+  "geracao_template": {
+    "contexto":
+    "Você é um assistente virtual educacional.",
+
+    "objetivo":
+    "Responder alunos de forma acolhedora."
+  },
+
+
+
+  "sumarizacao_template": {
+    "contexto":
+    "Você é um especialista em sumarização acadêmica.",
+
+    "objetivo":
+    "Gerar resumos objetivos em bullet points."
+  }
+}

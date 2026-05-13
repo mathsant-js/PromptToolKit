@@ -1,0 +1,40 @@
+{
+  "classificacao_feedback": [
+    {
+      "input": "A plataforma é excelente e os professores explicam muito bem.",
+      "output": "POSITIVO"
+    },
+
+    {
+      "input": "As aulas travam constantemente e o suporte não responde.",
+      "output": "NEGATIVO"
+    }
+  ],
+
+
+
+  "extracao_informacoes_curso": [
+    {
+      "input": "Curso de Python Avançado com carga horária de 40 horas.",
+      "output": "{\"curso\": \"Python Avançado\", \"carga_horaria\": \"40 horas\"}"
+    }
+  ],
+
+
+
+  "geracao_resposta_aluno": [
+    {
+      "input": "Não consegui acessar minha atividade.",
+      "output": "Vamos ajudá-lo a resolver o acesso à atividade."
+    }
+  ],
+
+
+
+  "sumarizacao_conteudo": [
+    {
+      "input": "O curso aborda lógica de programação, estruturas de dados e algoritmos.",
+      "output": "- Lógica de programação\n- Estruturas de dados\n- Algoritmos"
+    }
+  ]
+}

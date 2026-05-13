@@ -1,4 +1,5 @@
 import json
+import pandas as pd
 
 from dotenv import load_dotenv
 
@@ -37,29 +38,39 @@ load_dotenv()
 
 
 # ==========================================
-# CARREGAR INPUTS
+# FUNÇÃO AUXILIAR PARA CARREGAR JSON
 # ==========================================
 
-with open(
-    "data/inputs.json",
-    "r",
-    encoding="utf-8"
-) as arquivo:
+def carregar_json(caminho):
 
-    inputs_data = json.load(arquivo)
+    with open(
+        caminho,
+        "r",
+        encoding="utf-8"
+    ) as arquivo:
+
+        return json.load(arquivo)
 
 
 # ==========================================
-# CARREGAR PERSONAS
+# CARREGAR DADOS
 # ==========================================
 
-with open(
-    "prompts/system_prompts.json",
-    "r",
-    encoding="utf-8"
-) as arquivo:
+inputs_data = carregar_json(
+    "data/inputs.json"
+)
 
-    personas = json.load(arquivo)
+examples_data = carregar_json(
+    "data/examples.json"
+)
+
+personas = carregar_json(
+    "prompts/system_prompts.json"
+)
+
+templates = carregar_json(
+    "prompts/templates.json"
+)
 
 
 # ==========================================
@@ -90,7 +101,41 @@ for tarefa in TASKS:
     print(f"TAREFA: {nome_tarefa}")
     print("===================================")
 
-    inputs_tarefa = inputs_data[nome_tarefa]
+    # ======================================
+    # DADOS DA TAREFA
+    # ======================================
+
+    inputs_tarefa = inputs_data.get(
+        nome_tarefa,
+        []
+    )
+
+    exemplos_tarefa = examples_data.get(
+        nome_tarefa,
+        []
+    )
+
+    template_nome = tarefa["template"]
+
+    template = templates.get(
+        template_nome,
+        {}
+    )
+
+    contexto_template = template.get(
+        "contexto",
+        ""
+    )
+
+    objetivo_template = template.get(
+        "objetivo",
+        ""
+    )
+
+    passos_cot = tarefa.get(
+        "passos_cot",
+        []
+    )
 
     # ======================================
     # PARA CADA INPUT
@@ -109,8 +154,10 @@ for tarefa in TASKS:
         tecnica = "Zero-Shot"
 
         prompt = zero_shot(
-            tarefa,
-            entrada
+            tarefa=tarefa,
+            entrada=entrada,
+            contexto=contexto_template,
+            objetivo=objetivo_template
         )
 
         resultado = client.chat(
@@ -123,27 +170,47 @@ for tarefa in TASKS:
         )
 
         resultado_dict = {
-            "tarefa": nome_tarefa,
-            "tecnica": tecnica,
-            "input": entrada,
-            "esperado": esperado,
-            "resposta": resposta,
-            "tokens_prompt": contar_tokens(prompt),
-            "tempo_ms": resultado.get(
+
+            "tarefa":
+            nome_tarefa,
+
+            "tipo":
+            tarefa["tipo"],
+
+            "tecnica":
+            tecnica,
+
+            "input":
+            entrada,
+
+            "esperado":
+            esperado,
+
+            "resposta":
+            resposta,
+
+            "tokens_prompt":
+            contar_tokens(prompt),
+
+            "tempo_ms":
+            resultado.get(
                 "tempo_ms",
                 0
             ),
-            "acuracia": medir_acuracia(
+
+            "acuracia":
+            medir_acuracia(
                 resposta,
                 esperado
             )
         }
 
-        resultados.append(resultado_dict)
+        resultados.append(
+            resultado_dict
+        )
 
         print(f"\n[{tecnica}]")
         print(f"Resposta: {resposta}")
-
 
         # ==================================
         # FEW SHOT
@@ -152,9 +219,11 @@ for tarefa in TASKS:
         tecnica = "Few-Shot"
 
         prompt = few_shot(
-            tarefa,
-            entrada,
-            tarefa["exemplos_fewshot"]
+            tarefa=tarefa,
+            entrada=entrada,
+            exemplos=exemplos_tarefa,
+            contexto=contexto_template,
+            objetivo=objetivo_template
         )
 
         resultado = client.chat(
@@ -167,27 +236,47 @@ for tarefa in TASKS:
         )
 
         resultado_dict = {
-            "tarefa": nome_tarefa,
-            "tecnica": tecnica,
-            "input": entrada,
-            "esperado": esperado,
-            "resposta": resposta,
-            "tokens_prompt": contar_tokens(prompt),
-            "tempo_ms": resultado.get(
+
+            "tarefa":
+            nome_tarefa,
+
+            "tipo":
+            tarefa["tipo"],
+
+            "tecnica":
+            tecnica,
+
+            "input":
+            entrada,
+
+            "esperado":
+            esperado,
+
+            "resposta":
+            resposta,
+
+            "tokens_prompt":
+            contar_tokens(prompt),
+
+            "tempo_ms":
+            resultado.get(
                 "tempo_ms",
                 0
             ),
-            "acuracia": medir_acuracia(
+
+            "acuracia":
+            medir_acuracia(
                 resposta,
                 esperado
             )
         }
 
-        resultados.append(resultado_dict)
+        resultados.append(
+            resultado_dict
+        )
 
         print(f"\n[{tecnica}]")
         print(f"Resposta: {resposta}")
-
 
         # ==================================
         # CHAIN OF THOUGHT
@@ -196,9 +285,11 @@ for tarefa in TASKS:
         tecnica = "Chain-of-Thought"
 
         prompt = chain_of_thought(
-            tarefa,
-            entrada,
-            tarefa["passos_cot"]
+            tarefa=tarefa,
+            entrada=entrada,
+            passos=passos_cot,
+            contexto=contexto_template,
+            objetivo=objetivo_template
         )
 
         resultado = client.chat(
@@ -211,27 +302,47 @@ for tarefa in TASKS:
         )
 
         resultado_dict = {
-            "tarefa": nome_tarefa,
-            "tecnica": tecnica,
-            "input": entrada,
-            "esperado": esperado,
-            "resposta": resposta,
-            "tokens_prompt": contar_tokens(prompt),
-            "tempo_ms": resultado.get(
+
+            "tarefa":
+            nome_tarefa,
+
+            "tipo":
+            tarefa["tipo"],
+
+            "tecnica":
+            tecnica,
+
+            "input":
+            entrada,
+
+            "esperado":
+            esperado,
+
+            "resposta":
+            resposta,
+
+            "tokens_prompt":
+            contar_tokens(prompt),
+
+            "tempo_ms":
+            resultado.get(
                 "tempo_ms",
                 0
             ),
-            "acuracia": medir_acuracia(
+
+            "acuracia":
+            medir_acuracia(
                 resposta,
                 esperado
             )
         }
 
-        resultados.append(resultado_dict)
+        resultados.append(
+            resultado_dict
+        )
 
         print(f"\n[{tecnica}]")
         print(f"Resposta: {resposta}")
-
 
         # ==================================
         # ROLE PROMPTING
@@ -241,12 +352,17 @@ for tarefa in TASKS:
 
         persona_nome = tarefa["persona"]
 
-        persona = personas[persona_nome]
+        persona = personas.get(
+            persona_nome,
+            ""
+        )
 
         system, prompt = role_prompting(
-            tarefa,
-            entrada,
-            persona
+            tarefa=tarefa,
+            entrada=entrada,
+            persona=persona,
+            contexto=contexto_template,
+            objetivo=objetivo_template
         )
 
         resultado = client.chat(
@@ -260,23 +376,44 @@ for tarefa in TASKS:
         )
 
         resultado_dict = {
-            "tarefa": nome_tarefa,
-            "tecnica": tecnica,
-            "input": entrada,
-            "esperado": esperado,
-            "resposta": resposta,
-            "tokens_prompt": contar_tokens(prompt),
-            "tempo_ms": resultado.get(
+
+            "tarefa":
+            nome_tarefa,
+
+            "tipo":
+            tarefa["tipo"],
+
+            "tecnica":
+            tecnica,
+
+            "input":
+            entrada,
+
+            "esperado":
+            esperado,
+
+            "resposta":
+            resposta,
+
+            "tokens_prompt":
+            contar_tokens(prompt),
+
+            "tempo_ms":
+            resultado.get(
                 "tempo_ms",
                 0
             ),
-            "acuracia": medir_acuracia(
+
+            "acuracia":
+            medir_acuracia(
                 resposta,
                 esperado
             )
         }
 
-        resultados.append(resultado_dict)
+        resultados.append(
+            resultado_dict
+        )
 
         print(f"\n[{tecnica}]")
         print(f"Resposta: {resposta}")
@@ -290,15 +427,25 @@ print("\n===================================")
 print("GERANDO RELATÓRIOS")
 print("===================================")
 
-df = gerar_tabela(resultados)
+df = gerar_tabela(
+    resultados
+)
 
-grafico_acuracia(df)
+grafico_acuracia(
+    df
+)
 
-grafico_custo(df)
+grafico_custo(
+    df
+)
 
-grafico_tempo(df)
+grafico_tempo(
+    df
+)
 
-recomendacoes = recomendar(df)
+recomendacoes = recomendar(
+    df
+)
 
 
 # ==========================================
@@ -309,7 +456,11 @@ print("\n===================================")
 print("TESTE DE TEMPERATURA")
 print("===================================")
 
-temperaturas = [0.1, 0.5, 1.0]
+temperaturas = [
+    0.1,
+    0.5,
+    1.0
+]
 
 for recomendacao in recomendacoes:
 
@@ -322,64 +473,116 @@ for recomendacao in recomendacoes:
         if t["nome"] == tarefa_nome
     )
 
-    entrada = inputs_data[tarefa_nome][0]["input"]
+    entrada = inputs_data[
+        tarefa_nome
+    ][0]["input"]
+
+    exemplos_tarefa = examples_data.get(
+        tarefa_nome,
+        []
+    )
+
+    template_nome = tarefa["template"]
+
+    template = templates.get(
+        template_nome,
+        {}
+    )
+
+    contexto_template = template.get(
+        "contexto",
+        ""
+    )
+
+    objetivo_template = template.get(
+        "objetivo",
+        ""
+    )
+
+    passos_cot = tarefa.get(
+        "passos_cot",
+        []
+    )
 
     respostas = []
 
     for temp in temperaturas:
 
         # ==============================
-        # GERAR PROMPT DA MELHOR TÉCNICA
+        # ZERO SHOT
         # ==============================
 
         if tecnica == "Zero-Shot":
 
             prompt = zero_shot(
-                tarefa,
-                entrada
+                tarefa=tarefa,
+                entrada=entrada,
+                contexto=contexto_template,
+                objetivo=objetivo_template
             )
 
             resultado = client.chat(
                 prompt=prompt,
                 temp=temp
             )
+
+        # ==============================
+        # FEW SHOT
+        # ==============================
 
         elif tecnica == "Few-Shot":
 
             prompt = few_shot(
-                tarefa,
-                entrada,
-                tarefa["exemplos_fewshot"]
+                tarefa=tarefa,
+                entrada=entrada,
+                exemplos=exemplos_tarefa,
+                contexto=contexto_template,
+                objetivo=objetivo_template
             )
 
             resultado = client.chat(
                 prompt=prompt,
                 temp=temp
             )
+
+        # ==============================
+        # CHAIN OF THOUGHT
+        # ==============================
 
         elif tecnica == "Chain-of-Thought":
 
             prompt = chain_of_thought(
-                tarefa,
-                entrada,
-                tarefa["passos_cot"]
+                tarefa=tarefa,
+                entrada=entrada,
+                passos=passos_cot,
+                contexto=contexto_template,
+                objetivo=objetivo_template
             )
 
             resultado = client.chat(
                 prompt=prompt,
                 temp=temp
             )
+
+        # ==============================
+        # ROLE PROMPTING
+        # ==============================
 
         else:
 
             persona_nome = tarefa["persona"]
 
-            persona = personas[persona_nome]
+            persona = personas.get(
+                persona_nome,
+                ""
+            )
 
             system, prompt = role_prompting(
-                tarefa,
-                entrada,
-                persona
+                tarefa=tarefa,
+                entrada=entrada,
+                persona=persona,
+                contexto=contexto_template,
+                objetivo=objetivo_template
             )
 
             resultado = client.chat(
@@ -393,18 +596,30 @@ for recomendacao in recomendacoes:
             ""
         )
 
-        respostas.append(resposta)
+        respostas.append(
+            resposta
+        )
 
         consistencia = medir_consistencia(
             respostas
         )
 
         resultado_temp = {
-            "tarefa": tarefa_nome,
-            "tecnica": tecnica,
-            "temperatura": temp,
-            "resposta": resposta,
-            "consistencia": consistencia
+
+            "tarefa":
+            tarefa_nome,
+
+            "tecnica":
+            tecnica,
+
+            "temperatura":
+            temp,
+
+            "resposta":
+            resposta,
+
+            "consistencia":
+            consistencia
         }
 
         resultados_temperatura.append(
@@ -412,23 +627,29 @@ for recomendacao in recomendacoes:
         )
 
         print(f"\nTarefa: {tarefa_nome}")
+
         print(f"Técnica: {tecnica}")
+
         print(f"Temperatura: {temp}")
+
         print(f"Resposta: {resposta}")
-        print(f"Consistência: {consistencia}%")
+
+        print(
+            f"Consistência: {consistencia}%"
+        )
 
 
 # ==========================================
 # GRÁFICO DE TEMPERATURA
 # ==========================================
 
-import pandas as pd
-
 df_temp = pd.DataFrame(
     resultados_temperatura
 )
 
-grafico_temperatura(df_temp)
+grafico_temperatura(
+    df_temp
+)
 
 
 # ==========================================
@@ -436,7 +657,9 @@ grafico_temperatura(df_temp)
 # ==========================================
 
 print("\n===================================")
+
 print("EXECUÇÃO FINALIZADA")
+
 print("===================================")
 
 print("\nArquivos gerados:")

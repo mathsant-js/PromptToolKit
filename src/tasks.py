@@ -3,6 +3,9 @@ TASKS = [
     {
         "nome": "classificacao_feedback",
 
+        "descricao":
+        "Classificação de sentimento de feedbacks educacionais.",
+
         "tipo": "classificacao",
 
         "instrucao":
@@ -11,33 +14,11 @@ TASKS = [
         "formato_output":
         "Responda apenas POSITIVO, NEGATIVO, MISTO ou NEUTRO.",
 
-        "exemplos_fewshot": [
+        "template":
+        "classificacao_template",
 
-            {
-                "input":
-                "A plataforma é excelente e os professores explicam muito bem.",
-
-                "output":
-                "POSITIVO"
-            },
-
-            {
-                "input":
-                "As aulas travam constantemente e o suporte não responde.",
-
-                "output":
-                "NEGATIVO"
-            }
-        ],
-
-        "passos_cot": [
-
-            "Identifique pontos positivos",
-
-            "Identifique pontos negativos",
-
-            "Determine o sentimento predominante"
-        ],
+        "metricas":
+        ["acuracia"],
 
         "persona":
         "coordenador_pedagogico"
@@ -48,33 +29,22 @@ TASKS = [
     {
         "nome": "extracao_informacoes_curso",
 
+        "descricao":
+        "Extração de informações acadêmicas estruturadas.",
+
         "tipo": "extracao",
 
         "instrucao":
         "Extraia as informações acadêmicas relevantes do texto.",
 
         "formato_output":
-        "Retorne um JSON estruturado.",
+        "Retorne um JSON válido.",
 
-        "exemplos_fewshot": [
+        "template":
+        "extracao_template",
 
-            {
-                "input":
-                "Curso de Python Avançado com carga horária de 40 horas.",
-
-                "output":
-                "{curso: Python Avançado, carga_horaria: 40 horas}"
-            }
-        ],
-
-        "passos_cot": [
-
-            "Identifique o nome do curso",
-
-            "Identifique carga horária",
-
-            "Monte o JSON estruturado"
-        ],
+        "metricas":
+        ["acuracia", "json_valido"],
 
         "persona":
         "assistente_academico"
@@ -85,6 +55,9 @@ TASKS = [
     {
         "nome": "geracao_resposta_aluno",
 
+        "descricao":
+        "Geração de respostas empáticas para alunos.",
+
         "tipo": "geracao",
 
         "instrucao":
@@ -93,32 +66,23 @@ TASKS = [
         "formato_output":
         "Resposta educada, clara e objetiva.",
 
-        "exemplos_fewshot": [
+        "template":
+        "geracao_template",
 
-            {
-                "input":
-                "Não consegui acessar minha atividade.",
-
-                "output":
-                "Vamos ajudá-lo a resolver o acesso à atividade."
-            }
-        ],
-
-        "passos_cot": [
-
-            "Identifique o problema do aluno",
-
-            "Demonstre empatia",
-
-            "Apresente uma solução clara"
-        ],
+        "metricas":
+        ["similaridade"],
 
         "persona":
         "tutor_virtual"
     },
 
+
+
     {
         "nome": "sumarizacao_conteudo",
+
+        "descricao":
+        "Resumo acadêmico de conteúdos educacionais.",
 
         "tipo": "sumarizacao",
 
@@ -126,27 +90,13 @@ TASKS = [
         "Resuma o conteúdo acadêmico apresentado.",
 
         "formato_output":
-        "Retorne um resumo curto e objetivo em bullet points.",
+        "Retorne bullet points objetivos.",
 
-        "exemplos_fewshot": [
+        "template":
+        "sumarizacao_template",
 
-            {
-                "input":
-                "O curso aborda lógica de programação, estruturas de dados e algoritmos.",
-
-                "output":
-                "- Lógica de programação\n- Estruturas de dados\n- Algoritmos"
-            }
-        ],
-
-        "passos_cot": [
-
-            "Identifique os tópicos principais",
-
-            "Remova informações redundantes",
-
-            "Produza um resumo objetivo"
-        ],
+        "metricas":
+        ["similaridade"],
 
         "persona":
         "especialista_resumos"
